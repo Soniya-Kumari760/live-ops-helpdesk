@@ -1,0 +1,29 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.8.0
+2 info using node@v25.6.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\projects\live-ops-helpdesk\server\.npmrc
+5 silly config load:file:C:\Users\soniy\.npmrc
+6 silly config load:file:C:\Users\soniy\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm init
+8 verbose argv "init" "--yes"
+9 verbose logfile logs-max:10 dir:C:\projects\live-ops-helpdesk\server\clean\_logs\2026-05-25T08_58_53_684Z-
+10 verbose logfile C:\projects\live-ops-helpdesk\server\clean\_logs\2026-05-25T08_58_53_684Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly package data {
+12 silly package data   name: 'server',
+12 silly package data   version: '1.0.0',
+12 silly package data   description: '',
+12 silly package data   main: 'index.js',
+12 silly package data   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+12 silly package data   keywords: [],
+12 silly package data   author: '',
+12 silly package data   license: 'ISC',
+12 silly package data   type: 'commonjs'
+12 silly package data }
+13 verbose cwd C:\projects\live-ops-helpdesk\server
+14 verbose os Windows_NT 10.0.26200
+15 verbose node v25.6.0
+16 verbose npm  v11.8.0
+17 verbose exit 0
+18 info ok

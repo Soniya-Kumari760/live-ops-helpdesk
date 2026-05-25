@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "create-react-app": "^5.1.0"
+  },
+  "_npx": {
+    "packages": [
+      "create-react-app"
+    ]
+  }
+}

@@ -5,7 +5,6 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const { Pool } = require('pg');
 
-// --- Database connection ---
 const pool = new Pool({
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
@@ -14,7 +13,6 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
 });
 
-// --- Express + Socket.IO setup ---
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -28,9 +26,7 @@ const io = new Server(server, {
 const ticketLocks = {}; 
 // format: { ticketId: { agentId, agentName, lockedAt } }
 
-// --- REST API Routes ---
 
-// Sabhi tickets lao
 app.get('/api/tickets', async (req, res) => {
   try {
     const result = await pool.query(
@@ -42,7 +38,6 @@ app.get('/api/tickets', async (req, res) => {
   }
 });
 
-// Ek ticket lao
 app.get('/api/tickets/:id', async (req, res) => {
   try {
     const result = await pool.query(
@@ -53,9 +48,7 @@ app.get('/api/tickets/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-});
-
-// Ticket update karo
+})
 app.put('/api/tickets/:id', async (req, res) => {
   const { title, description, status, priority } = req.body;
   try {
@@ -71,7 +64,7 @@ app.put('/api/tickets/:id', async (req, res) => {
   }
 });
 
-// Sabhi agents lao
+
 app.get('/api/agents', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM agents');
@@ -81,14 +74,11 @@ app.get('/api/agents', async (req, res) => {
   }
 });
 
-// --- Socket.IO real-time events ---
 io.on('connection', (socket) => {
   console.log(`Agent connected: ${socket.id}`);
 
-  // Jab agent connect ho, sabhi current locks bhejo
   socket.emit('all_locks', ticketLocks);
 
-  // Ticket lock karo
   socket.on('lock_ticket', ({ ticketId, agentId, agentName }) => {
     if (!ticketLocks[ticketId]) {
       ticketLocks[ticketId] = { agentId, agentName, lockedAt: new Date() };
@@ -97,7 +87,6 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Ticket unlock karo
   socket.on('unlock_ticket', ({ ticketId, agentId }) => {
     if (ticketLocks[ticketId]?.agentId === agentId) {
       delete ticketLocks[ticketId];
@@ -106,13 +95,11 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Agent disconnect hone par uske saare locks hatao
   socket.on('disconnect', () => {
     console.log(`Agent disconnected: ${socket.id}`);
   });
 });
 
-// --- Server start karo ---
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
